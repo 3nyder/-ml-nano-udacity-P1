@@ -10,6 +10,17 @@ task is to find the best price your client can sell
 their house at. The best guess from a model is one 
 that best generalizes the data.
 
+For this assignment your client has a house with the 
+following feature set: 
+`[11.95, 0.00, 18.100, 0, 0.6590, 5.6090, 90.00, 1.385, 24, 680.0, 20.20, 332.09, 12.13]`
+To get started, use the example scikit implementation. 
+You will have to modify the code slightly to get the file 
+up and running.
+
+When you are done implementing the code please answer 
+the following questions in a report with the appropriate 
+sections provided.
+
 ---
 
 Repo for the first project of Machine Learning 
