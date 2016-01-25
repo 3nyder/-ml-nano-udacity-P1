@@ -162,10 +162,10 @@ def compare_prediction(house,prediction,city_data):
     
     #the difference between the mean an the prediction is less that 1(sigma)
     if abs(mean-prediction) < std:
-        print "The prediction", prediction, "is less than one standard deviation (", std, ") from the mean", mean
+        print "The prediction", prediction, "is less than one standard deviation (", std, ") away from the mean", mean
     #the difference between the median an the prediction is less that 1(sigma)
     if abs(median-prediction) < std:
-        print "The prediction", prediction, "is less than one standard deviation (", std, ") from the median", median
+        print "The prediction", prediction, "is less than one standard deviation (", std, ") away from the median", median
 
     #We now compare with the most similar (nearest) houses
     #Also sugested by reviewer
