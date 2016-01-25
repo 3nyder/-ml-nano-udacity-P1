@@ -25,18 +25,21 @@ def explore_city_data(city_data):
     housing_prices = city_data.target
     housing_features = city_data.data
 
-    ###################################
-    ### Step 1. YOUR CODE GOES HERE ###
-    ###################################
-
     # Please calculate the following values using the Numpy library
     # Size of data (number of houses)?
+    print "Number of houses:", housing_prices.size
     # Number of features?
+    print "Number of features:", housing_features[0].size
     # Minimum price?
+    print "Minimum price:", housing_prices.min()
     # Maximum price?
+    print "Maximum price:", housing_prices.max()
     # Calculate mean price?
+    print "Mean price:", np.mean(housing_prices)
     # Calculate median price?
+    print "Median price:", np.median(housing_prices)
     # Calculate standard deviation?
+    print "Standard deviation:", np.std(housing_prices)
 
 
 def split_data(city_data):
@@ -177,7 +180,7 @@ def fit_predict_model(city_data):
     print "House: " + str(x)
     print "Prediction: " + str(y)
 
-In the case of the documentation page for GridSearchCV, it might be the case that the example is just a demonstration of syntax for use of the function, rather than a statement about 
+#In the case of the documentation page for GridSearchCV, it might be the case that the example is just a demonstration of syntax for use of the function, rather than a statement about 
 def main():
     """Analyze the Boston housing data. Evaluate and validate the
     performanance of a Decision Tree regressor on the housing data.
