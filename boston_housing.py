@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.cross_validation import train_test_split
 from sklearn.metrics import mean_squared_error, make_scorer
 from sklearn.grid_search import GridSearchCV
+from sklearn.neighbors import NearestNeighbors
 
 def load_data():
     """Load the Boston dataset."""
@@ -141,6 +142,39 @@ def model_complexity_graph(max_depth, train_err, test_err):
     pl.ylabel('Error')
     pl.show()
 
+#method provided by the reviewer as a Pro Tip (thanks)
+def find_nearest_neighbor_indexes(vector, data_set):
+   neigh = NearestNeighbors( n_neighbors = 10 )
+   neigh.fit(data_set)
+   distance, indexes = neigh.kneighbors(vector)
+   return indexes
+
+def compare_prediction(house,prediction,city_data):
+
+    # Get the labels and features from the housing data
+    housing_prices = city_data.target
+    housing_features = city_data.data
+    
+    #meaning statistics from the data, mean, median and standard deviation
+    mean = np.mean(housing_prices)
+    median = np.median(housing_prices)
+    std = np.std(housing_prices)
+    
+    #the difference between the mean an the prediction is less that 1(sigma)
+    if abs(mean-prediction) < std:
+        print "The prediction", prediction, "is less than one standard deviation (", std, ") from the mean", mean
+    #the difference between the median an the prediction is less that 1(sigma)
+    if abs(median-prediction) < std:
+        print "The prediction", prediction, "is less than one standard deviation (", std, ") from the median", median
+
+    #We now compare with the most similar (nearest) houses
+    #Also sugested by reviewer
+    sum_prices = []
+    for i in find_nearest_neighbor_indexes(house,housing_features):
+        sum_prices.append(city_data.target[i])
+    average_price = np.mean(sum_prices)
+    print "Nearest Neighbors average price:", average_price
+
 
 def fit_predict_model(city_data):
     """Find and tune the optimal model. Make a prediction on housing data."""
@@ -156,7 +190,7 @@ def fit_predict_model(city_data):
     # 1. Find an appropriate performance metric. This should be the same as the
     # one used in your performance_metric procedure above:
     # http://scikit-learn.org/stable/modules/generated/sklearn.metrics.make_scorer.html
-    mse_scorer = make_scorer(mean_squared_error)
+    mse_scorer = make_scorer(mean_squared_error, greater_is_better=False)
 
     # 2. We will use grid search to fine tune the Decision Tree Regressor and
     # obtain the parameters that generate the best training performance. Set up
@@ -173,6 +207,9 @@ def fit_predict_model(city_data):
     y = reg.predict(x)
     print "House: " + str(x)
     print "Prediction: " + str(y)
+    print "Best parameter:  " + str(reg.best_params_)
+
+    compare_prediction(x,y,city_data)
 
 #In the case of the documentation page for GridSearchCV, it might be the case that the example is just a demonstration of syntax for use of the function, rather than a statement about 
 def main():
